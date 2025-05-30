@@ -8,7 +8,7 @@ A Swift wrapper for the National Weather Service (NWS) API that provides easy ac
 - Comprehensive coverage of NWS API endpoints
 - Type-safe models for all API responses
 - Robust error handling
-- Minimal dependencies
+- **NO** dependencies
 - Detailed documentation and examples
 
 ## Requirements
@@ -25,7 +25,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yourusername/SwiftNWS.git", from: "1.0.0")
+    .package(url: "https://github.com/iOSDeveloperGuy/SwiftNWS.git", from: "1.0.0")
 ]
 ```
 
@@ -57,10 +57,10 @@ let nwsClient = NWSClient(configuration: config)
 // Get forecast for a specific location by coordinates
 do {
     let forecast = try await nwsClient.forecasts.getForecastForPoint(
-        latitude: 39.7456, 
+        latitude: 39.7456,
         longitude: -97.0892
     )
-    
+
     // Access forecast data
     for period in forecast.properties.periods {
         print("\(period.name): \(period.detailedForecast)")
@@ -72,10 +72,10 @@ do {
 // Get hourly forecast
 do {
     let hourlyForecast = try await nwsClient.forecasts.getHourlyForecastForPoint(
-        latitude: 39.7456, 
+        latitude: 39.7456,
         longitude: -97.0892
     )
-    
+
     // Access hourly forecast data
     for period in hourlyForecast.properties.periods {
         print("\(period.startTime) - \(period.temperature)°\(period.temperatureUnit)")
@@ -91,7 +91,7 @@ do {
 // Get all active alerts
 do {
     let activeAlerts = try await nwsClient.alerts.getActiveAlerts()
-    
+
     for alert in activeAlerts.features {
         print("Alert: \(alert.event) - \(alert.headline ?? "No headline")")
         print("Severity: \(alert.severity.rawValue)")
@@ -116,11 +116,11 @@ do {
 // Get latest observations for a station
 do {
     let observations = try await nwsClient.observations.getLatestObservations(stationId: "KNYC")
-    
+
     if let temp = observations.properties.temperature?.value {
         print("Current temperature: \(temp)°C")
     }
-    
+
     if let description = observations.properties.textDescription {
         print("Conditions: \(description)")
     }
@@ -132,13 +132,13 @@ do {
 do {
     let startDate = Date().addingTimeInterval(-86400) // 24 hours ago
     let endDate = Date()
-    
+
     let observations = try await nwsClient.observations.getObservations(
         stationId: "KNYC",
         start: startDate,
         end: endDate
     )
-    
+
     print("Retrieved \(observations.features.count) observations")
 } catch {
     print("Error fetching observations: \(error)")
@@ -151,10 +151,10 @@ do {
 // Get stations near a point
 do {
     let stations = try await nwsClient.stations.getStationsForPoint(
-        latitude: 39.7456, 
+        latitude: 39.7456,
         longitude: -97.0892
     )
-    
+
     for station in stations.features {
         print("Station: \(station.properties.name) (\(station.properties.stationIdentifier))")
     }
@@ -194,7 +194,7 @@ do {
 // Get forecast for a zone
 do {
     let forecast = try await nwsClient.zones.getForecastForZone(type: .forecast, zoneId: "NYZ072")
-    
+
     for period in forecast.properties.periods {
         print("\(period.name): \(period.detailedForecast)")
     }
@@ -225,7 +225,7 @@ do {
 // Get headlines for an office
 do {
     let headlines = try await nwsClient.offices.getHeadlinesForOffice(officeId: "OKX")
-    
+
     for headline in headlines.features {
         print("Headline: \(headline.properties.title)")
     }
@@ -241,7 +241,7 @@ The wrapper uses Swift's built-in error handling mechanisms. All service methods
 ```swift
 do {
     let forecast = try await nwsClient.forecasts.getForecastForPoint(
-        latitude: 39.7456, 
+        latitude: 39.7456,
         longitude: -97.0892
     )
     // Process forecast
@@ -299,4 +299,4 @@ This wrapper is not affiliated with or endorsed by the National Weather Service 
 
 ## Contact
 
-For questions, issues, or feature requests, please open an issue on the GitHub repository.
+For questions, issues, or feature requests, please [open an issue](https://github.com/iOSDeveloperGuy/SwiftNWS/issues/new) on the GitHub repository.
