@@ -4,74 +4,74 @@ import Foundation
 
 /// Status of an alert.
 public enum AlertStatus: String, Codable {
-    case actual
-    case exercise
-    case system
-    case test
-    case draft
+    case Actual
+    case Exercise
+    case System
+    case Test
+    case Draft
 }
 
 /// Message type of an alert.
 public enum AlertMessageType: String, Codable {
-    case alert
-    case update
-    case cancel
+    case Alert
+    case Update
+    case Cancel
 }
 
 /// Category of an alert.
 public enum AlertCategory: String, Codable {
-    case met
-    case geo
-    case safety
-    case security
-    case rescue
-    case fire
-    case health
-    case env
-    case transport
-    case infra
-    case cbrne
-    case other
+    case Met
+    case Geo
+    case Safety
+    case Security
+    case Rescue
+    case Fire
+    case Health
+    case Env
+    case Transport
+    case Infra
+    case Cbrne
+    case Other
 }
 
 /// Severity of an alert.
 public enum AlertSeverity: String, Codable {
-    case extreme
-    case severe
-    case moderate
-    case minor
-    case unknown
+    case Extreme
+    case Severe
+    case Moderate
+    case Minor
+    case Unknown
 }
 
 /// Certainty of an alert.
 public enum AlertCertainty: String, Codable {
-    case observed
-    case likely
-    case possible
-    case unlikely
-    case unknown
+    case Observed
+    case Likely
+    case Possible
+    case Unlikely
+    case Unknown
 }
 
 /// Urgency of an alert.
 public enum AlertUrgency: String, Codable {
-    case immediate
-    case expected
-    case future
-    case past
-    case unknown
+    case Immediate
+    case Expected
+    case Future
+    case Past
+    case Unknown
 }
 
 /// Response type of an alert.
 public enum AlertResponse: String, Codable {
-    case shelter
-    case evacuate
-    case prepare
-    case execute
-    case avoid
-    case monitor
-    case assess
+    case Shelter
+    case Evacuate
+    case Prepare
+    case Execute
+    case Avoid
+    case Monitor
+    case Assess
     case allClear = "all-clear"
-    case none
+    case None
 }
 
 /// A reference to another alert.
@@ -87,6 +87,13 @@ public struct Reference: Codable {
     
     /// The date the referenced alert was sent.
     public let sent: Date
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "@id"
+        case identifier
+        case sender
+        case sent
+    }
 }
 
 /// Geocode information for an alert.
@@ -181,17 +188,21 @@ public struct Pagination: Codable {
 
 /// A collection of alerts.
 public struct AlertCollection: Codable {
-    /// The title of the collection.
-    public let title: String?
+    /// A list of alert features returned by the API.
+    public let alerts: [AlertFeatures]
     
-    /// The date the collection was updated.
-    public let updated: Date?
+    private enum CodingKeys: String, CodingKey {
+        case alerts = "features"
+    }
+}
+
+public struct AlertFeatures: Codable {
+    /// The detailed alert information.
+    let alert: Alert
     
-    /// The alerts in the collection.
-    public let features: [Alert]
-    
-    /// Pagination information for the collection.
-    public let pagination: Pagination?
+    private enum CodingKeys: String, CodingKey {
+        case alert = "properties"
+    }
 }
 
 /// Count of active alerts.

@@ -16,8 +16,6 @@ public struct StationCollection: Codable {
     /// The stations in the collection.
     public let features: [Station]
     
-    /// Pagination information for the collection.
-    public let pagination: Pagination?
 }
 
 /// Properties of a station.
@@ -54,4 +52,18 @@ public struct StationProperties: Codable {
     
     /// The station type.
     public let stationType: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "@id"
+        case name
+        case timeZone
+        case forecast
+        case county
+        case fireWeatherZone
+        case elevation
+        case status
+        case observationStations
+        case stationIdentifier
+        case stationType
+    }
 }

@@ -10,9 +10,6 @@ public struct Forecast: Codable {
 
 /// Properties of a forecast.
 public struct ForecastProperties: Codable {
-    /// The date the forecast was updated.
-    public let updated: Date
-    
     /// The units of the forecast.
     public let units: String
     
