@@ -26,8 +26,8 @@ public class NWSClient {
     }()
     
     /// Service for accessing point-related endpoints
-    public lazy var points: PointsService = {
-        return PointsService(networkService: self.networkService)
+    public lazy var points: NWSPointsService = {
+        return NWSPointsService(networkService: self.networkService)
     }()
     
     /// Service for accessing zone-related endpoints

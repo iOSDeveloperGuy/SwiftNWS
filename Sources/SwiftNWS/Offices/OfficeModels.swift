@@ -3,26 +3,26 @@ import Foundation
 /// Models for office-related API responses.
 
 /// An office from the NWS API.
-public struct Office: Codable, Sendable {
+public struct NWSOffice: Codable, Sendable {
     /// The ID of the office.
     public let id: String
     
     /// The properties of the office.
-    public let properties: OfficeProperties
+    public let properties: NWSOfficeProperties
 }
 
 /// A collection of offices.
 @available(*, deprecated, message: "No longer supported")
-public struct OfficeCollection: Codable, Sendable {
+public struct NWSOfficeCollection: Codable, Sendable {
     /// The offices in the collection.
-    public let features: [Office]
+    public let features: [NWSOffice]
     
     /// Pagination information for the collection.
-    public let pagination: Pagination?
+    public let pagination: NWSPagination?
 }
 
 /// Properties of an office.
-public struct OfficeProperties: Codable, Sendable {
+public struct NWSOfficeProperties: Codable, Sendable {
     /// The ID of the office.
     public let id: String
     
@@ -30,7 +30,7 @@ public struct OfficeProperties: Codable, Sendable {
     public let name: String
     
     /// The address of the office.
-    public let address: OfficeAddress?
+    public let address: NWSOfficeAddress?
     
     /// The telephone number of the office.
     public let telephone: String?
@@ -58,7 +58,7 @@ public struct OfficeProperties: Codable, Sendable {
 }
 
 /// Address of an office.
-public struct OfficeAddress: Codable, Sendable {
+public struct NWSOfficeAddress: Codable, Sendable {
     /// The street address of the office.
     public let streetAddress: String?
     
@@ -76,18 +76,18 @@ public struct OfficeAddress: Codable, Sendable {
 }
 
 /// A headline from the NWS API.
-public struct Headline: Codable, Sendable {
+public struct NWSHeadline: Codable, Sendable {
     /// The ID of the headline.
     public let id: String
     
     /// The properties of the headline.
-    public let properties: HeadlineProperties
+    public let properties: NWSHeadlineProperties
 }
 
 /// A collection of headlines.
-public struct HeadlineCollection: Codable, Sendable {
+public struct NWSHeadlineCollection: Codable, Sendable {
     /// The headlines in the collection.
-    public let headlines: [HeadlineProperties]
+    public let headlines: [NWSHeadlineProperties]
     
     enum CodingKeys: String, CodingKey {
         case headlines = "@graph"
@@ -95,7 +95,7 @@ public struct HeadlineCollection: Codable, Sendable {
 }
 
 /// Properties of a headline.
-public struct HeadlineProperties: Codable, Sendable {
+public struct NWSHeadlineProperties: Codable, Sendable {
     /// The URI identifier of the headline.
     public let atId: String
     

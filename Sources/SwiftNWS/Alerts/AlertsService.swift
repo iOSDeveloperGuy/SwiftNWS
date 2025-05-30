@@ -29,20 +29,20 @@ public class AlertsService {
     /// - Returns: A collection of alerts matching the criteria.
     /// - Throws: An error if the request fails.
     public func getAlerts(
-        status: AlertStatus? = nil,
-        messageType: AlertMessageType? = nil,
+        status: NWSAlertStatus? = nil,
+        messageType: NWSAlertMessageType? = nil,
         event: String? = nil,
         code: String? = nil,
         area: String? = nil,
-        point: Coordinate? = nil,
+        point: NWSCoordinate? = nil,
         region: String? = nil,
         region_type: String? = nil,
         zone: String? = nil,
-        urgency: AlertUrgency? = nil,
-        severity: AlertSeverity? = nil,
-        certainty: AlertCertainty? = nil,
+        urgency: NWSAlertUrgency? = nil,
+        severity: NWSAlertSeverity? = nil,
+        certainty: NWSAlertCertainty? = nil,
         limit: Int? = nil
-    ) async throws -> AlertCollection {
+    ) async throws -> NWSAlertCollection {
         var queryItems = [URLQueryItem]()
         
         if let status = status {
@@ -104,7 +104,7 @@ public class AlertsService {
     /// Gets all currently active alerts.
     /// - Returns: A collection of active alerts.
     /// - Throws: An error if the request fails.
-    public func getActiveAlerts() async throws -> AlertCollection {
+    public func getActiveAlerts() async throws -> NWSAlertCollection {
         let endpoint = AlertsEndpoint.activeAlerts
         return try await networkService.request(endpoint: endpoint)
     }
@@ -112,7 +112,7 @@ public class AlertsService {
     /// Gets the count of active alerts, broken down by various categories.
     /// - Returns: The count of active alerts.
     /// - Throws: An error if the request fails.
-    public func getActiveAlertCount() async throws -> AlertCount {
+    public func getActiveAlertCount() async throws -> NWSAlertCount {
         let endpoint = AlertsEndpoint.activeAlertCount
         return try await networkService.request(endpoint: endpoint)
     }
@@ -121,7 +121,7 @@ public class AlertsService {
     /// - Parameter zoneId: The ID of the zone.
     /// - Returns: A collection of active alerts for the zone.
     /// - Throws: An error if the request fails.
-    public func getActiveAlertsForZone(_ zoneId: String) async throws -> AlertCollection {
+    public func getActiveAlertsForZone(_ zoneId: String) async throws -> NWSAlertCollection {
         let endpoint = AlertsEndpoint.activeAlertsForZone(zoneId: zoneId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -130,7 +130,7 @@ public class AlertsService {
     /// - Parameter area: The area (state or marine region).
     /// - Returns: A collection of active alerts for the area.
     /// - Throws: An error if the request fails.
-    public func getActiveAlertsForArea(_ area: String) async throws -> AlertCollection {
+    public func getActiveAlertsForArea(_ area: String) async throws -> NWSAlertCollection {
         let endpoint = AlertsEndpoint.activeAlertsForArea(area: area)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -139,7 +139,7 @@ public class AlertsService {
     /// - Parameter region: The marine region.
     /// - Returns: A collection of active alerts for the region.
     /// - Throws: An error if the request fails.
-    public func getActiveAlertsForRegion(_ region: String) async throws -> AlertCollection {
+    public func getActiveAlertsForRegion(_ region: String) async throws -> NWSAlertCollection {
         let endpoint = AlertsEndpoint.activeAlertsForRegion(region: region)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -147,7 +147,7 @@ public class AlertsService {
     /// Gets a list of recognized event types.
     /// - Returns: A list of alert types.
     /// - Throws: An error if the request fails.
-    public func getAlertTypes() async throws -> [AlertType] {
+    public func getAlertTypes() async throws -> [NWSAlertType] {
         let endpoint = AlertsEndpoint.alertTypes
         return try await networkService.request(endpoint: endpoint)
     }

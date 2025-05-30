@@ -15,7 +15,7 @@ public class OfficesService {
     /// - Parameter officeId: The ID of the office.
     /// - Returns: The office with the specified ID.
     /// - Throws: An error if the request fails.
-    public func getOffice(officeId: String) async throws -> OfficeProperties {
+    public func getOffice(officeId: String) async throws -> NWSOfficeProperties {
         let endpoint = OfficesEndpoint.office(officeId: officeId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -24,7 +24,7 @@ public class OfficesService {
     /// - Parameter officeId: The ID of the office.
     /// - Returns: The headlines for the office.
     /// - Throws: An error if the request fails.
-    public func getHeadlinesForOffice(officeId: String) async throws -> HeadlineCollection {
+    public func getHeadlinesForOffice(officeId: String) async throws -> NWSHeadlineCollection {
         let endpoint = OfficesEndpoint.officeHeadlines(officeId: officeId)
         return try await networkService.request(endpoint: endpoint)
     }

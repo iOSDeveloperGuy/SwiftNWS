@@ -15,7 +15,7 @@ public class ZonesService {
     /// - Parameter type: The type of zones to get.
     /// - Returns: A collection of zones of the specified type.
     /// - Throws: An error if the request fails.
-    public func getZones(type: ZoneType) async throws -> ZoneCollection {
+    public func getZones(type: NWSZoneType) async throws -> NWSZoneCollection {
         let endpoint = ZonesEndpoint.zones(type: type)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -26,7 +26,7 @@ public class ZonesService {
     ///   - zoneId: The ID of the zone.
     /// - Returns: The zone with the specified type and ID.
     /// - Throws: An error if the request fails.
-    public func getZone(type: ZoneType, zoneId: String) async throws -> Zone {
+    public func getZone(type: NWSZoneType, zoneId: String) async throws -> NWSZone {
         let endpoint = ZonesEndpoint.zone(type: type, zoneId: zoneId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -37,7 +37,7 @@ public class ZonesService {
     ///   - zoneId: The ID of the zone.
     /// - Returns: The forecast for the zone.
     /// - Throws: An error if the request fails.
-    public func getForecastForZone(type: ZoneType, zoneId: String) async throws -> ZoneForecast {
+    public func getForecastForZone(type: NWSZoneType, zoneId: String) async throws -> NWSZoneForecast {
         let endpoint = ZonesEndpoint.zoneForecast(type: type, zoneId: zoneId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -45,9 +45,9 @@ public class ZonesService {
 
 /// Endpoints for the zones service.
 internal enum ZonesEndpoint: Endpoint {
-    case zones(type: ZoneType)
-    case zone(type: ZoneType, zoneId: String)
-    case zoneForecast(type: ZoneType, zoneId: String)
+    case zones(type: NWSZoneType)
+    case zone(type: NWSZoneType, zoneId: String)
+    case zoneForecast(type: NWSZoneType, zoneId: String)
     
     var path: String {
         switch self {

@@ -3,13 +3,13 @@ import Foundation
 /// Models for forecast-related API responses.
 
 /// A forecast from the NWS API.
-public struct Forecast: Codable, Sendable {
+public struct NWSForecast: Codable, Sendable {
     /// The properties of the forecast.
-    public let properties: ForecastProperties
+    public let properties: NWSForecastProperties
 }
 
 /// Properties of a forecast.
-public struct ForecastProperties: Codable, Sendable {
+public struct NWSForecastProperties: Codable, Sendable {
     /// The units of the forecast.
     public let units: String
     
@@ -26,14 +26,14 @@ public struct ForecastProperties: Codable, Sendable {
     public let validTimes: String
     
     /// The elevation of the forecast point.
-    public let elevation: Elevation
+    public let elevation: NWSElevation
     
     /// The periods of the forecast.
-    public let periods: [ForecastPeriod]
+    public let periods: [NWSForecastPeriod]
 }
 
 /// Elevation information.
-public struct Elevation: Codable, Sendable {
+public struct NWSElevation: Codable, Sendable {
     /// The value of the elevation.
     public let value: Double
     
@@ -42,7 +42,7 @@ public struct Elevation: Codable, Sendable {
 }
 
 /// A period in a forecast.
-public struct ForecastPeriod: Codable, Identifiable, Sendable {
+public struct NWSForecastPeriod: Codable, Identifiable, Sendable {
     /// The number of the period.
     public let number: Int
     
@@ -87,16 +87,16 @@ public struct ForecastPeriod: Codable, Identifiable, Sendable {
 }
 
 /// A point from the NWS API.
-public struct Point: Codable, Sendable {
+public struct NWSPoint: Codable, Sendable {
     /// The ID of the point.
     public let id: String
     
     /// The properties of the point.
-    public let properties: PointProperties
+    public let properties: NWSPointProperties
 }
 
 /// Properties of a point.
-public struct PointProperties: Codable, Sendable {
+public struct NWSPointProperties: Codable, Sendable {
     /// The ID of the grid.
     public let gridId: String
     

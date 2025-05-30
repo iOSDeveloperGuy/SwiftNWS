@@ -1,7 +1,7 @@
 import Foundation
 
 /// Service for accessing point-related endpoints of the NWS API.
-public class PointsService {
+public class NWSPointsService {
     /// The network service used to make API requests.
     private let networkService: NetworkService
     
@@ -17,8 +17,8 @@ public class PointsService {
     ///   - longitude: The longitude of the point.
     /// - Returns: The point information for the coordinates.
     /// - Throws: An error if the request fails.
-    public func getPoint(latitude: Double, longitude: Double) async throws -> Point {
-        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+    public func getPoint(latitude: Double, longitude: Double) async throws -> NWSPoint {
+        let coordinate = NWSCoordinate(latitude: latitude, longitude: longitude)
         let endpoint = PointsEndpoint.point(coordinate: coordinate)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -26,7 +26,7 @@ public class PointsService {
 
 /// Endpoints for the points service.
 internal enum PointsEndpoint: Endpoint {
-    case point(coordinate: Coordinate)
+    case point(coordinate: NWSCoordinate)
     
     var path: String {
         switch self {

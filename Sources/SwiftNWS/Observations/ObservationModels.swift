@@ -3,22 +3,22 @@ import Foundation
 /// Models for observation-related API responses.
 
 /// An observation from the NWS API.
-public struct Observation: Codable, Sendable {
+public struct NWSObservation: Codable, Sendable {
     /// The ID of the observation.
     public let id: String
     
     /// The properties of the observation.
-    public let properties: ObservationProperties
+    public let properties: NWSObservationProperties
 }
 
 /// A collection of observations.
-public struct ObservationCollection: Codable, Sendable {
+public struct NWSObservationCollection: Codable, Sendable {
     /// The observations in the collection.
-    public let features: [Observation]
+    public let features: [NWSObservation]
 }
 
 /// Properties of an observation.
-public struct ObservationProperties: Codable, Sendable {
+public struct NWSObservationProperties: Codable, Sendable {
     /// The ID of the observation.
     public let id: String
     
@@ -41,58 +41,58 @@ public struct ObservationProperties: Codable, Sendable {
     public let icon: URL?
     
     /// The present weather for the observation.
-    public let presentWeather: [PresentWeather]?
+    public let presentWeather: [NWSPresentWeather]?
     
     /// The temperature for the observation.
-    public let temperature: QuantitativeValue?
+    public let temperature: NWSQuantitativeValue?
     
     /// The dewpoint for the observation.
-    public let dewpoint: QuantitativeValue?
+    public let dewpoint: NWSQuantitativeValue?
     
     /// The wind direction for the observation.
-    public let windDirection: QuantitativeValue?
+    public let windDirection: NWSQuantitativeValue?
     
     /// The wind speed for the observation.
-    public let windSpeed: QuantitativeValue?
+    public let windSpeed: NWSQuantitativeValue?
     
     /// The wind gust for the observation.
-    public let windGust: QuantitativeValue?
+    public let windGust: NWSQuantitativeValue?
     
     /// The barometric pressure for the observation.
-    public let barometricPressure: QuantitativeValue?
+    public let barometricPressure: NWSQuantitativeValue?
     
     /// The sea level pressure for the observation.
-    public let seaLevelPressure: QuantitativeValue?
+    public let seaLevelPressure: NWSQuantitativeValue?
     
     /// The visibility for the observation.
-    public let visibility: QuantitativeValue?
+    public let visibility: NWSQuantitativeValue?
     
     /// The maximum temperature in the past 24 hours.
-    public let maxTemperatureLast24Hours: QuantitativeValue?
+    public let maxTemperatureLast24Hours: NWSQuantitativeValue?
     
     /// The minimum temperature in the past 24 hours.
-    public let minTemperatureLast24Hours: QuantitativeValue?
+    public let minTemperatureLast24Hours: NWSQuantitativeValue?
     
     /// The precipitation in the past hour.
-    public let precipitationLastHour: QuantitativeValue?
+    public let precipitationLastHour: NWSQuantitativeValue?
     
     /// The precipitation in the past 3 hours.
-    public let precipitationLast3Hours: QuantitativeValue?
+    public let precipitationLast3Hours: NWSQuantitativeValue?
     
     /// The precipitation in the past 6 hours.
-    public let precipitationLast6Hours: QuantitativeValue?
+    public let precipitationLast6Hours: NWSQuantitativeValue?
     
     /// The relative humidity for the observation.
-    public let relativeHumidity: QuantitativeValue?
+    public let relativeHumidity: NWSQuantitativeValue?
     
     /// The wind chill for the observation.
-    public let windChill: QuantitativeValue?
+    public let windChill: NWSQuantitativeValue?
     
     /// The heat index for the observation.
-    public let heatIndex: QuantitativeValue?
+    public let heatIndex: NWSQuantitativeValue?
     
     /// The cloud layers for the observation.
-    public let cloudLayers: [CloudLayer]?
+    public let cloudLayers: [NWSCloudLayer]?
     
     enum CodingKeys: String, CodingKey {
         case id = "@id"
@@ -124,7 +124,7 @@ public struct ObservationProperties: Codable, Sendable {
 }
 
 /// A quantitative value with a unit.
-public struct QuantitativeValue: Codable, Sendable {
+public struct NWSQuantitativeValue: Codable, Sendable {
     /// The value of the measurement.
     public let value: Double?
     
@@ -136,16 +136,16 @@ public struct QuantitativeValue: Codable, Sendable {
 }
 
 /// A cloud layer observation.
-public struct CloudLayer: Codable, Sendable {
+public struct NWSCloudLayer: Codable, Sendable {
     /// The base of the cloud layer.
-    public let base: QuantitativeValue?
+    public let base: NWSQuantitativeValue?
     
     /// The amount of cloud cover.
     public let amount: String?
 }
 
 /// A present weather observation.
-public struct PresentWeather: Codable, Sendable {
+public struct NWSPresentWeather: Codable, Sendable {
     /// The intensity of the weather (e.g., light, moderate, heavy).
     public let intensity: String?
     

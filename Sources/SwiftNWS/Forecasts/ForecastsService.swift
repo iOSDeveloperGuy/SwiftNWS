@@ -17,12 +17,12 @@ public class ForecastsService {
     ///   - longitude: The longitude of the point.
     /// - Returns: The forecast for the point.
     /// - Throws: An error if the request fails.
-    public func getForecastForPoint(latitude: Double, longitude: Double) async throws -> Forecast {
-        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+    public func getForecastForPoint(latitude: Double, longitude: Double) async throws -> NWSForecast {
+        let coordinate = NWSCoordinate(latitude: latitude, longitude: longitude)
         
         // First, get the grid point for the coordinate
         let pointEndpoint = PointsEndpoint.point(coordinate: coordinate)
-        let point: Point = try await networkService.request(endpoint: pointEndpoint)
+        let point: NWSPoint = try await networkService.request(endpoint: pointEndpoint)
         
         // Then, get the forecast for the grid point
         let forecastEndpoint = ForecastsEndpoint.gridpointForecast(
@@ -40,12 +40,12 @@ public class ForecastsService {
     ///   - longitude: The longitude of the point.
     /// - Returns: The hourly forecast for the point.
     /// - Throws: An error if the request fails.
-    public func getHourlyForecastForPoint(latitude: Double, longitude: Double) async throws -> Forecast {
-        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+    public func getHourlyForecastForPoint(latitude: Double, longitude: Double) async throws -> NWSForecast {
+        let coordinate = NWSCoordinate(latitude: latitude, longitude: longitude)
         
         // First, get the grid point for the coordinate
         let pointEndpoint = PointsEndpoint.point(coordinate: coordinate)
-        let point: Point = try await networkService.request(endpoint: pointEndpoint)
+        let point: NWSPoint = try await networkService.request(endpoint: pointEndpoint)
         
         // Then, get the hourly forecast for the grid point
         let forecastEndpoint = ForecastsEndpoint.gridpointForecastHourly(
@@ -64,7 +64,7 @@ public class ForecastsService {
     ///   - gridY: The Y coordinate of the grid point.
     /// - Returns: The forecast for the grid point.
     /// - Throws: An error if the request fails.
-    public func getForecastForGridPoint(office: String, gridX: Int, gridY: Int) async throws -> Forecast {
+    public func getForecastForGridPoint(office: String, gridX: Int, gridY: Int) async throws -> NWSForecast {
         let endpoint = ForecastsEndpoint.gridpointForecast(office: office, gridX: gridX, gridY: gridY)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -76,7 +76,7 @@ public class ForecastsService {
     ///   - gridY: The Y coordinate of the grid point.
     /// - Returns: The hourly forecast for the grid point.
     /// - Throws: An error if the request fails.
-    public func getHourlyForecastForGridPoint(office: String, gridX: Int, gridY: Int) async throws -> Forecast {
+    public func getHourlyForecastForGridPoint(office: String, gridX: Int, gridY: Int) async throws -> NWSForecast {
         let endpoint = ForecastsEndpoint.gridpointForecastHourly(office: office, gridX: gridX, gridY: gridY)
         return try await networkService.request(endpoint: endpoint)
     }

@@ -15,7 +15,7 @@ public class ObservationsService {
     /// - Parameter stationId: The ID of the station.
     /// - Returns: The latest observations for the station.
     /// - Throws: An error if the request fails.
-    public func getLatestObservations(stationId: String) async throws -> ObservationCollection {
+    public func getLatestObservations(stationId: String) async throws -> NWSObservationCollection {
         let endpoint = ObservationsEndpoint.stationObservations(stationId: stationId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -27,7 +27,7 @@ public class ObservationsService {
     ///   - end: The end date of the time period.
     /// - Returns: The observations for the station within the time period.
     /// - Throws: An error if the request fails.
-    public func getObservations(stationId: String, start: Date, end: Date) async throws -> ObservationCollection {
+    public func getObservations(stationId: String, start: Date, end: Date) async throws -> NWSObservationCollection {
         let startString = start.toISO8601()
         let endString = end.toISO8601()
         

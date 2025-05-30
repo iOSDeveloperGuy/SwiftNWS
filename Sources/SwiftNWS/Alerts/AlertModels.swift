@@ -3,7 +3,7 @@ import Foundation
 /// Models for alert-related API responses.
 
 /// Status of an alert.
-public enum AlertStatus: String, Codable, Sendable {
+public enum NWSAlertStatus: String, Codable, Sendable {
     case Actual
     case Exercise
     case System
@@ -12,14 +12,14 @@ public enum AlertStatus: String, Codable, Sendable {
 }
 
 /// Message type of an alert.
-public enum AlertMessageType: String, Codable, Sendable {
+public enum NWSAlertMessageType: String, Codable, Sendable {
     case Alert
     case Update
     case Cancel
 }
 
 /// Category of an alert.
-public enum AlertCategory: String, Codable, Sendable {
+public enum NWSAlertCategory: String, Codable, Sendable {
     case Met
     case Geo
     case Safety
@@ -35,7 +35,7 @@ public enum AlertCategory: String, Codable, Sendable {
 }
 
 /// Severity of an alert.
-public enum AlertSeverity: String, Codable, Sendable {
+public enum NWSAlertSeverity: String, Codable, Sendable {
     case Extreme
     case Severe
     case Moderate
@@ -44,7 +44,7 @@ public enum AlertSeverity: String, Codable, Sendable {
 }
 
 /// Certainty of an alert.
-public enum AlertCertainty: String, Codable, Sendable {
+public enum NWSAlertCertainty: String, Codable, Sendable {
     case Observed
     case Likely
     case Possible
@@ -53,7 +53,7 @@ public enum AlertCertainty: String, Codable, Sendable {
 }
 
 /// Urgency of an alert.
-public enum AlertUrgency: String, Codable, Sendable {
+public enum NWSAlertUrgency: String, Codable, Sendable {
     case Immediate
     case Expected
     case Future
@@ -62,7 +62,7 @@ public enum AlertUrgency: String, Codable, Sendable {
 }
 
 /// Response type of an alert.
-public enum AlertResponse: String, Codable, Sendable {
+public enum NWSAlertResponse: String, Codable, Sendable {
     case Shelter
     case Evacuate
     case Prepare
@@ -75,7 +75,7 @@ public enum AlertResponse: String, Codable, Sendable {
 }
 
 /// A reference to another alert.
-public struct Reference: Codable, Sendable {
+public struct NWSReference: Codable, Sendable {
     /// The ID of the referenced alert.
     public let id: String
     
@@ -97,7 +97,7 @@ public struct Reference: Codable, Sendable {
 }
 
 /// Geocode information for an alert.
-public struct Geocode: Codable, Sendable {
+public struct NWSGeocode: Codable, Sendable {
     /// SAME codes for the alert.
     public let SAME: [String]?
     
@@ -106,7 +106,7 @@ public struct Geocode: Codable, Sendable {
 }
 
 /// An alert from the NWS API.
-public struct Alert: Codable, Identifiable, Sendable {
+public struct NWSAlert: Codable, Identifiable, Sendable {
     /// The ID of the alert.
     public let id: String
     
@@ -114,13 +114,13 @@ public struct Alert: Codable, Identifiable, Sendable {
     public let areaDesc: String
     
     /// The geocode information for the alert.
-    public let geocode: Geocode
+    public let geocode: NWSGeocode
     
     /// The zones affected by the alert.
     public let affectedZones: [URL]
     
     /// References to other alerts.
-    public let references: [Reference]
+    public let references: [NWSReference]
     
     /// The date the alert was sent.
     public let sent: Date
@@ -138,22 +138,22 @@ public struct Alert: Codable, Identifiable, Sendable {
     public let ends: Date?
     
     /// The status of the alert.
-    public let status: AlertStatus
+    public let status: NWSAlertStatus
     
     /// The message type of the alert.
-    public let messageType: AlertMessageType
+    public let messageType: NWSAlertMessageType
     
     /// The category of the alert.
-    public let category: AlertCategory
+    public let category: NWSAlertCategory
     
     /// The severity of the alert.
-    public let severity: AlertSeverity
+    public let severity: NWSAlertSeverity
     
     /// The certainty of the alert.
-    public let certainty: AlertCertainty
+    public let certainty: NWSAlertCertainty
     
     /// The urgency of the alert.
-    public let urgency: AlertUrgency
+    public let urgency: NWSAlertUrgency
     
     /// The event name of the alert.
     public let event: String
@@ -174,31 +174,31 @@ public struct Alert: Codable, Identifiable, Sendable {
     public let instruction: String?
     
     /// The response type of the alert.
-    public let response: AlertResponse
+    public let response: NWSAlertResponse
     
     /// Additional parameters for the alert.
     public let parameters: [String: [String]]?
 }
 
 /// Pagination information for collections.
-public struct Pagination: Codable, Sendable {
+public struct NWSPagination: Codable, Sendable {
     /// The next page URL.
     public let next: URL?
 }
 
 /// A collection of alerts.
-public struct AlertCollection: Codable, Sendable {
+public struct NWSAlertCollection: Codable, Sendable {
     /// A list of alert features returned by the API.
-    public let alerts: [AlertFeatures]
+    public let alerts: [NWSAlertFeatures]
     
     private enum CodingKeys: String, CodingKey {
         case alerts = "features"
     }
 }
 
-public struct AlertFeatures: Codable, Sendable {
+public struct NWSAlertFeatures: Codable, Sendable {
     /// The detailed alert information.
-    let alert: Alert
+    let alert: NWSAlert
     
     private enum CodingKeys: String, CodingKey {
         case alert = "properties"
@@ -206,7 +206,7 @@ public struct AlertFeatures: Codable, Sendable {
 }
 
 /// Count of active alerts.
-public struct AlertCount: Codable, Sendable {
+public struct NWSAlertCount: Codable, Sendable {
     /// The total number of active alerts.
     public let total: Int
     
@@ -227,7 +227,7 @@ public struct AlertCount: Codable, Sendable {
 }
 
 /// An alert type.
-public struct AlertType: Codable, Sendable {
+public struct NWSAlertType: Codable, Sendable {
     /// The ID of the alert type.
     public let id: String
     

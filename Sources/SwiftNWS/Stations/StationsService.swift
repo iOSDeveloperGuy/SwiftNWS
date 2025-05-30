@@ -14,7 +14,7 @@ public class StationsService {
     /// Gets all stations.
     /// - Returns: A collection of stations.
     /// - Throws: An error if the request fails.
-    public func getAllStations() async throws -> StationCollection {
+    public func getAllStations() async throws -> NWSStationCollection {
         let endpoint = StationsEndpoint.stations
         return try await networkService.request(endpoint: endpoint)
     }
@@ -23,7 +23,7 @@ public class StationsService {
     /// - Parameter stationId: The ID of the station.
     /// - Returns: The station with the specified ID.
     /// - Throws: An error if the request fails.
-    public func getStation(stationId: String) async throws -> Station {
+    public func getStation(stationId: String) async throws -> NWSStation {
         let endpoint = StationsEndpoint.station(stationId: stationId)
         return try await networkService.request(endpoint: endpoint)
     }
@@ -34,12 +34,12 @@ public class StationsService {
     ///   - longitude: The longitude of the point.
     /// - Returns: A collection of stations for the point.
     /// - Throws: An error if the request fails.
-    public func getStationsForPoint(latitude: Double, longitude: Double) async throws -> StationCollection {
-        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+    public func getStationsForPoint(latitude: Double, longitude: Double) async throws -> NWSStationCollection {
+        let coordinate = NWSCoordinate(latitude: latitude, longitude: longitude)
         
         // First, get the grid point for the coordinate
         let pointEndpoint = PointsEndpoint.point(coordinate: coordinate)
-        let point: Point = try await networkService.request(endpoint: pointEndpoint)
+        let point: NWSPoint = try await networkService.request(endpoint: pointEndpoint)
         
         // Then, get the observation stations for the grid point
         let stationsEndpoint = StationsEndpoint.stationsForPoint(url: point.properties.observationStations)

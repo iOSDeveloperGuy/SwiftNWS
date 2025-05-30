@@ -1,7 +1,7 @@
 import Foundation
 
 /// A utility struct for representing geographic coordinates.
-public struct Coordinate: Codable, Equatable {
+public struct NWSCoordinate: Codable, Equatable {
     /// The latitude component of the coordinate.
     public let latitude: Double
     

@@ -3,7 +3,7 @@ import Foundation
 /// Models for zone-related API responses.
 
 /// Type of a zone.
-public enum ZoneType: String, Codable, Sendable {
+public enum NWSZoneType: String, Codable, Sendable {
     case forecast
     case fire
     case county
@@ -14,25 +14,25 @@ public enum ZoneType: String, Codable, Sendable {
 }
 
 /// A zone from the NWS API.
-public struct Zone: Codable, Sendable {
+public struct NWSZone: Codable, Sendable {
     /// The ID of the zone.
     public let id: String
     
     /// The properties of the zone.
-    public let properties: ZoneProperties
+    public let properties: NWSZoneProperties
 }
 
 /// A collection of zones.
-public struct ZoneCollection: Codable, Sendable {
+public struct NWSZoneCollection: Codable, Sendable {
     /// The zones in the collection.
-    public let features: [Zone]
+    public let features: [NWSZone]
     
     /// Pagination information for the collection.
-    public let pagination: Pagination?
+    public let pagination: NWSPagination?
 }
 
 /// Properties of a zone.
-public struct ZoneProperties: Codable, Sendable {
+public struct NWSZoneProperties: Codable, Sendable {
     /// The ID of the zone.
     public let id: String
     
@@ -62,22 +62,22 @@ public struct ZoneProperties: Codable, Sendable {
 }
 
 /// A forecast for a zone.
-public struct ZoneForecast: Codable, Sendable {
+public struct NWSZoneForecast: Codable, Sendable {
     /// The properties of the zone forecast.
-    public let properties: ZoneForecastProperties
+    public let properties: NWSZoneForecastProperties
 }
 
 /// Properties of a zone forecast.
-public struct ZoneForecastProperties: Codable, Sendable {
+public struct NWSZoneForecastProperties: Codable, Sendable {
     /// The date the forecast was updated.
     public let updated: Date
     
     /// The periods of the forecast.
-    public let periods: [ZoneForecastPeriod]
+    public let periods: [NWSZoneForecastPeriod]
 }
 
 /// A period in a zone forecast.
-public struct ZoneForecastPeriod: Codable, Sendable {
+public struct NWSZoneForecastPeriod: Codable, Sendable {
     /// The number of the period.
     public let number: Int
     

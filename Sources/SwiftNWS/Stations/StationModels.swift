@@ -3,23 +3,23 @@ import Foundation
 /// Models for station-related API responses.
 
 /// A station from the NWS API.
-public struct Station: Codable, Sendable {
+public struct NWSStation: Codable, Sendable {
     /// The ID of the station.
     public let id: String
     
     /// The properties of the station.
-    public let properties: StationProperties
+    public let properties: NWSStationProperties
 }
 
 /// A collection of stations.
-public struct StationCollection: Codable, Sendable {
+public struct NWSStationCollection: Codable, Sendable {
     /// The stations in the collection.
-    public let features: [Station]
+    public let features: [NWSStation]
     
 }
 
 /// Properties of a station.
-public struct StationProperties: Codable, Sendable {
+public struct NWSStationProperties: Codable, Sendable {
     /// The ID of the station.
     public let id: String
     
@@ -39,7 +39,7 @@ public struct StationProperties: Codable, Sendable {
     public let fireWeatherZone: URL?
     
     /// The elevation of the station.
-    public let elevation: Elevation?
+    public let elevation: NWSElevation?
     
     /// The status of the station.
     public let status: String?
