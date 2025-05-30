@@ -46,7 +46,7 @@ internal class NetworkService {
     /// - Throws: An error if the request fails or the response cannot be decoded.
     func request<T: Decodable>(endpoint: Endpoint, format: NWSFormat? = nil) async throws -> T {
         let data = try await request(endpoint: endpoint, format: format)
-        
+                
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601

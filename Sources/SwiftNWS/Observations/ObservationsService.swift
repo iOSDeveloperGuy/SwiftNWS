@@ -15,7 +15,7 @@ public class ObservationsService {
     /// - Parameter stationId: The ID of the station.
     /// - Returns: The latest observations for the station.
     /// - Throws: An error if the request fails.
-    public func getLatestObservations(stationId: String) async throws -> Observation {
+    public func getLatestObservations(stationId: String) async throws -> ObservationCollection {
         let endpoint = ObservationsEndpoint.stationObservations(stationId: stationId)
         return try await networkService.request(endpoint: endpoint)
     }

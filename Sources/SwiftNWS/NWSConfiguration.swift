@@ -6,6 +6,11 @@ public struct NWSConfiguration: Sendable {
     public let baseURL: URL
     
     /// The user agent string to use for API requests.
+    ///
+    /// This should be a descriptive string identifying your application and
+    /// optionally a way to contact you (e.g., an email or website), in accordance
+    /// with the NWS API policy. For example:
+    /// "MyWeatherApp/1.0 (myemail@example.com)"
     public var userAgent: String
     
     /// The default format to use for API responses.

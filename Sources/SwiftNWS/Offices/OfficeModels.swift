@@ -12,6 +12,7 @@ public struct Office: Codable {
 }
 
 /// A collection of offices.
+@available(*, deprecated, message: "No longer supported")
 public struct OfficeCollection: Codable {
     /// The offices in the collection.
     public let features: [Office]
@@ -86,29 +87,55 @@ public struct Headline: Codable {
 /// A collection of headlines.
 public struct HeadlineCollection: Codable {
     /// The headlines in the collection.
-    public let features: [Headline]
+    public let headlines: [HeadlineProperties]
     
-    /// Pagination information for the collection.
-    public let pagination: Pagination?
+    enum CodingKeys: String, CodingKey {
+        case headlines = "@graph"
+    }
 }
 
 /// Properties of a headline.
 public struct HeadlineProperties: Codable {
+    /// The URI identifier of the headline.
+    public let atId: String
+    
     /// The ID of the headline.
     public let id: String
+    
+    /// The office responsible for the headline.
+    public let office: String
+    
+    /// Whether the headline is marked as important.
+    public let important: Bool
+    
+    /// The issuance time of the headline.
+    public let issuanceTime: Date
+    
+    /// The URL link to the headline.
+    public let link: String
+    
+    /// The name of the headline.
+    public let name: String
     
     /// The title of the headline.
     public let title: String
     
+    /// The summary of the headline.
+    public let summary: String?
+    
     /// The content of the headline.
     public let content: String
     
-    /// The date the headline was published.
-    public let published: Date
-    
-    /// The date the headline was updated.
-    public let updated: Date?
-    
-    /// The URL of the headline.
-    public let url: URL?
+    private enum CodingKeys: String, CodingKey {
+        case atId = "@id"
+        case id
+        case office
+        case important
+        case issuanceTime
+        case link
+        case name
+        case title
+        case summary
+        case content
+    }
 }
