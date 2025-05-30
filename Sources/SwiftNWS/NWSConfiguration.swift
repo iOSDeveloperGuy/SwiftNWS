@@ -1,7 +1,7 @@
 import Foundation
 
 /// Configuration for the NWS client.
-public struct NWSConfiguration {
+public struct NWSConfiguration: Sendable {
     /// The base URL for the NWS API.
     public let baseURL: URL
     

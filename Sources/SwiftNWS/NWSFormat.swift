@@ -1,7 +1,7 @@
 import Foundation
 
 /// Supported response formats for the NWS API.
-public enum NWSFormat: String {
+public enum NWSFormat: String, Sendable {
     /// GeoJSON format (application/geo+json)
     case geoJSON = "application/geo+json"
     

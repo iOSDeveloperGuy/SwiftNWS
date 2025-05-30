@@ -104,23 +104,3 @@ internal enum ForecastsEndpoint: Endpoint {
         return nil
     }
 }
-
-/// Endpoints for the points service.
-internal enum PointsEndpoint: Endpoint {
-    case point(coordinate: Coordinate)
-    
-    var path: String {
-        switch self {
-        case .point(let coordinate):
-            return "/points/\(coordinate.latitude),\(coordinate.longitude)"
-        }
-    }
-    
-    var method: HTTPMethod {
-        return .get
-    }
-    
-    var queryItems: [URLQueryItem]? {
-        return nil
-    }
-}

@@ -3,7 +3,7 @@ import Foundation
 /// The main entry point for interacting with the National Weather Service API.
 public class NWSClient {
     /// Configuration for the NWS client
-    public let configuration: NWSConfiguration
+    public var configuration: NWSConfiguration
     
     /// Service for accessing alert-related endpoints
     public lazy var alerts: AlertsService = {
