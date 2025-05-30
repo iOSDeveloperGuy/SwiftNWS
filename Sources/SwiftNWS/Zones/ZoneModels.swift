@@ -3,7 +3,7 @@ import Foundation
 /// Models for zone-related API responses.
 
 /// Type of a zone.
-public enum ZoneType: String, Codable {
+public enum ZoneType: String, Codable, Sendable {
     case forecast
     case fire
     case county
@@ -14,7 +14,7 @@ public enum ZoneType: String, Codable {
 }
 
 /// A zone from the NWS API.
-public struct Zone: Codable {
+public struct Zone: Codable, Sendable {
     /// The ID of the zone.
     public let id: String
     
@@ -23,7 +23,7 @@ public struct Zone: Codable {
 }
 
 /// A collection of zones.
-public struct ZoneCollection: Codable {
+public struct ZoneCollection: Codable, Sendable {
     /// The zones in the collection.
     public let features: [Zone]
     
@@ -32,7 +32,7 @@ public struct ZoneCollection: Codable {
 }
 
 /// Properties of a zone.
-public struct ZoneProperties: Codable {
+public struct ZoneProperties: Codable, Sendable {
     /// The ID of the zone.
     public let id: String
     
@@ -62,13 +62,13 @@ public struct ZoneProperties: Codable {
 }
 
 /// A forecast for a zone.
-public struct ZoneForecast: Codable {
+public struct ZoneForecast: Codable, Sendable {
     /// The properties of the zone forecast.
     public let properties: ZoneForecastProperties
 }
 
 /// Properties of a zone forecast.
-public struct ZoneForecastProperties: Codable {
+public struct ZoneForecastProperties: Codable, Sendable {
     /// The date the forecast was updated.
     public let updated: Date
     
@@ -77,7 +77,7 @@ public struct ZoneForecastProperties: Codable {
 }
 
 /// A period in a zone forecast.
-public struct ZoneForecastPeriod: Codable {
+public struct ZoneForecastPeriod: Codable, Sendable {
     /// The number of the period.
     public let number: Int
     

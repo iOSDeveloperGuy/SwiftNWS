@@ -3,7 +3,7 @@ import Foundation
 /// Models for station-related API responses.
 
 /// A station from the NWS API.
-public struct Station: Codable {
+public struct Station: Codable, Sendable {
     /// The ID of the station.
     public let id: String
     
@@ -12,14 +12,14 @@ public struct Station: Codable {
 }
 
 /// A collection of stations.
-public struct StationCollection: Codable {
+public struct StationCollection: Codable, Sendable {
     /// The stations in the collection.
     public let features: [Station]
     
 }
 
 /// Properties of a station.
-public struct StationProperties: Codable {
+public struct StationProperties: Codable, Sendable {
     /// The ID of the station.
     public let id: String
     

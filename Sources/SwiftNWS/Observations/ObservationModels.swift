@@ -3,7 +3,7 @@ import Foundation
 /// Models for observation-related API responses.
 
 /// An observation from the NWS API.
-public struct Observation: Codable {
+public struct Observation: Codable, Sendable {
     /// The ID of the observation.
     public let id: String
     
@@ -12,13 +12,13 @@ public struct Observation: Codable {
 }
 
 /// A collection of observations.
-public struct ObservationCollection: Codable {
+public struct ObservationCollection: Codable, Sendable {
     /// The observations in the collection.
     public let features: [Observation]
 }
 
 /// Properties of an observation.
-public struct ObservationProperties: Codable {
+public struct ObservationProperties: Codable, Sendable {
     /// The ID of the observation.
     public let id: String
     
@@ -124,7 +124,7 @@ public struct ObservationProperties: Codable {
 }
 
 /// A quantitative value with a unit.
-public struct QuantitativeValue: Codable {
+public struct QuantitativeValue: Codable, Sendable {
     /// The value of the measurement.
     public let value: Double?
     
@@ -136,7 +136,7 @@ public struct QuantitativeValue: Codable {
 }
 
 /// A cloud layer observation.
-public struct CloudLayer: Codable {
+public struct CloudLayer: Codable, Sendable {
     /// The base of the cloud layer.
     public let base: QuantitativeValue?
     
@@ -145,7 +145,7 @@ public struct CloudLayer: Codable {
 }
 
 /// A present weather observation.
-public struct PresentWeather: Codable {
+public struct PresentWeather: Codable, Sendable {
     /// The intensity of the weather (e.g., light, moderate, heavy).
     public let intensity: String?
     

@@ -3,7 +3,7 @@ import Foundation
 /// Models for alert-related API responses.
 
 /// Status of an alert.
-public enum AlertStatus: String, Codable {
+public enum AlertStatus: String, Codable, Sendable {
     case Actual
     case Exercise
     case System
@@ -12,14 +12,14 @@ public enum AlertStatus: String, Codable {
 }
 
 /// Message type of an alert.
-public enum AlertMessageType: String, Codable {
+public enum AlertMessageType: String, Codable, Sendable {
     case Alert
     case Update
     case Cancel
 }
 
 /// Category of an alert.
-public enum AlertCategory: String, Codable {
+public enum AlertCategory: String, Codable, Sendable {
     case Met
     case Geo
     case Safety
@@ -35,7 +35,7 @@ public enum AlertCategory: String, Codable {
 }
 
 /// Severity of an alert.
-public enum AlertSeverity: String, Codable {
+public enum AlertSeverity: String, Codable, Sendable {
     case Extreme
     case Severe
     case Moderate
@@ -44,7 +44,7 @@ public enum AlertSeverity: String, Codable {
 }
 
 /// Certainty of an alert.
-public enum AlertCertainty: String, Codable {
+public enum AlertCertainty: String, Codable, Sendable {
     case Observed
     case Likely
     case Possible
@@ -53,7 +53,7 @@ public enum AlertCertainty: String, Codable {
 }
 
 /// Urgency of an alert.
-public enum AlertUrgency: String, Codable {
+public enum AlertUrgency: String, Codable, Sendable {
     case Immediate
     case Expected
     case Future
@@ -62,7 +62,7 @@ public enum AlertUrgency: String, Codable {
 }
 
 /// Response type of an alert.
-public enum AlertResponse: String, Codable {
+public enum AlertResponse: String, Codable, Sendable {
     case Shelter
     case Evacuate
     case Prepare
@@ -75,7 +75,7 @@ public enum AlertResponse: String, Codable {
 }
 
 /// A reference to another alert.
-public struct Reference: Codable {
+public struct Reference: Codable, Sendable {
     /// The ID of the referenced alert.
     public let id: String
     
@@ -97,7 +97,7 @@ public struct Reference: Codable {
 }
 
 /// Geocode information for an alert.
-public struct Geocode: Codable {
+public struct Geocode: Codable, Sendable {
     /// SAME codes for the alert.
     public let SAME: [String]?
     
@@ -106,7 +106,7 @@ public struct Geocode: Codable {
 }
 
 /// An alert from the NWS API.
-public struct Alert: Codable, Identifiable {
+public struct Alert: Codable, Identifiable, Sendable {
     /// The ID of the alert.
     public let id: String
     
@@ -181,13 +181,13 @@ public struct Alert: Codable, Identifiable {
 }
 
 /// Pagination information for collections.
-public struct Pagination: Codable {
+public struct Pagination: Codable, Sendable {
     /// The next page URL.
     public let next: URL?
 }
 
 /// A collection of alerts.
-public struct AlertCollection: Codable {
+public struct AlertCollection: Codable, Sendable {
     /// A list of alert features returned by the API.
     public let alerts: [AlertFeatures]
     
@@ -196,7 +196,7 @@ public struct AlertCollection: Codable {
     }
 }
 
-public struct AlertFeatures: Codable {
+public struct AlertFeatures: Codable, Sendable {
     /// The detailed alert information.
     let alert: Alert
     
@@ -206,7 +206,7 @@ public struct AlertFeatures: Codable {
 }
 
 /// Count of active alerts.
-public struct AlertCount: Codable {
+public struct AlertCount: Codable, Sendable {
     /// The total number of active alerts.
     public let total: Int
     
@@ -227,7 +227,7 @@ public struct AlertCount: Codable {
 }
 
 /// An alert type.
-public struct AlertType: Codable {
+public struct AlertType: Codable, Sendable {
     /// The ID of the alert type.
     public let id: String
     

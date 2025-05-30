@@ -3,13 +3,13 @@ import Foundation
 /// Models for forecast-related API responses.
 
 /// A forecast from the NWS API.
-public struct Forecast: Codable {
+public struct Forecast: Codable, Sendable {
     /// The properties of the forecast.
     public let properties: ForecastProperties
 }
 
 /// Properties of a forecast.
-public struct ForecastProperties: Codable {
+public struct ForecastProperties: Codable, Sendable {
     /// The units of the forecast.
     public let units: String
     
@@ -33,7 +33,7 @@ public struct ForecastProperties: Codable {
 }
 
 /// Elevation information.
-public struct Elevation: Codable {
+public struct Elevation: Codable, Sendable {
     /// The value of the elevation.
     public let value: Double
     
@@ -42,7 +42,7 @@ public struct Elevation: Codable {
 }
 
 /// A period in a forecast.
-public struct ForecastPeriod: Codable, Identifiable {
+public struct ForecastPeriod: Codable, Identifiable, Sendable {
     /// The number of the period.
     public let number: Int
     
@@ -87,7 +87,7 @@ public struct ForecastPeriod: Codable, Identifiable {
 }
 
 /// A point from the NWS API.
-public struct Point: Codable {
+public struct Point: Codable, Sendable {
     /// The ID of the point.
     public let id: String
     
@@ -96,7 +96,7 @@ public struct Point: Codable {
 }
 
 /// Properties of a point.
-public struct PointProperties: Codable {
+public struct PointProperties: Codable, Sendable {
     /// The ID of the grid.
     public let gridId: String
     

@@ -3,7 +3,7 @@ import Foundation
 /// Models for office-related API responses.
 
 /// An office from the NWS API.
-public struct Office: Codable {
+public struct Office: Codable, Sendable {
     /// The ID of the office.
     public let id: String
     
@@ -13,7 +13,7 @@ public struct Office: Codable {
 
 /// A collection of offices.
 @available(*, deprecated, message: "No longer supported")
-public struct OfficeCollection: Codable {
+public struct OfficeCollection: Codable, Sendable {
     /// The offices in the collection.
     public let features: [Office]
     
@@ -22,7 +22,7 @@ public struct OfficeCollection: Codable {
 }
 
 /// Properties of an office.
-public struct OfficeProperties: Codable {
+public struct OfficeProperties: Codable, Sendable {
     /// The ID of the office.
     public let id: String
     
@@ -58,7 +58,7 @@ public struct OfficeProperties: Codable {
 }
 
 /// Address of an office.
-public struct OfficeAddress: Codable {
+public struct OfficeAddress: Codable, Sendable {
     /// The street address of the office.
     public let streetAddress: String?
     
@@ -76,7 +76,7 @@ public struct OfficeAddress: Codable {
 }
 
 /// A headline from the NWS API.
-public struct Headline: Codable {
+public struct Headline: Codable, Sendable {
     /// The ID of the headline.
     public let id: String
     
@@ -85,7 +85,7 @@ public struct Headline: Codable {
 }
 
 /// A collection of headlines.
-public struct HeadlineCollection: Codable {
+public struct HeadlineCollection: Codable, Sendable {
     /// The headlines in the collection.
     public let headlines: [HeadlineProperties]
     
@@ -95,7 +95,7 @@ public struct HeadlineCollection: Codable {
 }
 
 /// Properties of a headline.
-public struct HeadlineProperties: Codable {
+public struct HeadlineProperties: Codable, Sendable {
     /// The URI identifier of the headline.
     public let atId: String
     
