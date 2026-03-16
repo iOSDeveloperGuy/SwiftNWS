@@ -205,3 +205,30 @@ func client() -> NWSClient {
     print("Grid Y: \(point.properties.gridY)")
     print("Time Zone: \(point.properties.timeZone)")
 }
+
+/// Tests the text products functionality of the wrapper.
+@Test func testProducts() async throws {
+    print("\nTesting text products functionality...")
+
+    let client = client()
+
+    let productTypes = try await client.products.getProductTypes()
+
+    print("✅ Successfully retrieved product types")
+    print("Found \(productTypes.productTypes.count) product types")
+
+    let spcOutlook = try await client.products.getLatestSPCOutlook(.day1)
+
+    print("✅ Successfully retrieved latest SPC outlook")
+    print("Product code: \(spcOutlook.productCode)")
+    print("Issuing office: \(spcOutlook.issuingOffice)")
+    print("Issued: \(spcOutlook.issuanceTime)")
+
+    #expect(spcOutlook.productCode == "SWO")
+    #expect((spcOutlook.productText?.isEmpty ?? true) == false)
+}
+
+@Test func testSPCOutlook() async throws {
+    let outlook = try await client().products.getLatestSPCOutlook(.day1)
+    print(outlook)
+}

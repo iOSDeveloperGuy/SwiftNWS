@@ -234,6 +234,32 @@ do {
 }
 ```
 
+### Checking SPC Outlooks
+
+```swift
+// Get the latest SPC Day 1 convective outlook narrative
+do {
+    let outlook = try await nwsClient.products.getLatestSPCOutlook(.day1)
+
+    print("Issued: \(outlook.issuanceTime)")
+    print(outlook.productText ?? "No product text")
+} catch {
+    print("Error fetching SPC outlook: \(error)")
+}
+
+// You can also query the underlying text products API directly
+do {
+    let latestDay2 = try await nwsClient.products.getLatestProduct(
+        typeId: "SWO",
+        locationId: "DY2"
+    )
+
+    print(latestDay2.productName)
+} catch {
+    print("Error fetching latest SWO DY2 product: \(error)")
+}
+```
+
 ## Error Handling
 
 The wrapper uses Swift's built-in error handling mechanisms. All service methods are marked with `throws` and will throw appropriate `NWSError` instances when errors occur.
