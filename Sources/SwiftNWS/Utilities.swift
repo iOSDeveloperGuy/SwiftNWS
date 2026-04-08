@@ -1,7 +1,7 @@
 import Foundation
 
 /// A utility struct for representing geographic coordinates.
-public struct NWSCoordinate: Codable, Equatable {
+public struct NWSCoordinate: Codable, Equatable, Sendable {
     /// The latitude component of the coordinate.
     public let latitude: Double
     
@@ -31,6 +31,11 @@ extension Date {
     static func fromISO8601(_ string: String) -> Date? {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = formatter.date(from: string) {
+            return date
+        }
+
+        formatter.formatOptions = [.withInternetDateTime]
         return formatter.date(from: string)
     }
     

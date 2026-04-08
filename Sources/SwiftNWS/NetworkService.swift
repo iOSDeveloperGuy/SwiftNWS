@@ -12,12 +12,19 @@ internal enum HTTPMethod: String {
 internal protocol Endpoint {
     /// The path component of the endpoint URL.
     var path: String { get }
+
+    /// An optional base URL override for endpoints hosted outside the default API.
+    var baseURLOverride: URL? { get }
     
     /// The HTTP method to use for the request.
     var method: HTTPMethod { get }
     
     /// Query items to include in the request URL.
     var queryItems: [URLQueryItem]? { get }
+}
+
+internal extension Endpoint {
+    var baseURLOverride: URL? { nil }
 }
 
 /// Internal service for handling network requests.
@@ -63,7 +70,9 @@ internal class NetworkService {
     /// - Returns: The raw response data.
     /// - Throws: An error if the request fails.
     func request(endpoint: Endpoint, format: NWSFormat? = nil) async throws -> Data {
-        guard var components = URLComponents(url: configuration.baseURL, resolvingAgainstBaseURL: true) else {
+        let baseURL = endpoint.baseURLOverride ?? configuration.baseURL
+
+        guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
             throw NWSError.invalidRequest(message: "Invalid base URL")
         }
         

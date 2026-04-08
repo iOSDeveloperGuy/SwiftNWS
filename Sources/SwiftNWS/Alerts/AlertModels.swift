@@ -72,6 +72,21 @@ public enum NWSAlertResponse: String, Codable, Sendable {
     case Assess
     case allClear = "all-clear"
     case None
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+
+        switch rawValue.lowercased() {
+        case "all-clear", "allclear":
+            self = .allClear
+        default:
+            guard let value = Self(rawValue: rawValue) else {
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Cannot initialize NWSAlertResponse from invalid String value \(rawValue)")
+            }
+            self = value
+        }
+    }
 }
 
 /// A reference to another alert.

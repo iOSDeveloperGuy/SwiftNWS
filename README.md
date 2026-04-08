@@ -260,6 +260,25 @@ do {
 }
 ```
 
+### Drawing SPC Outlook Geometry
+
+```swift
+// Fetch the latest Day 1 categorical polygons for map rendering
+do {
+    let outlook = try await nwsClient.spcOutlooks.getOutlookGeometry(for: .day1Categorical)
+
+    for feature in outlook.features {
+        for polygon in feature.geometry.coordinatePolygons {
+            for ring in polygon {
+                print("Ring has \(ring.count) coordinates")
+            }
+        }
+    }
+} catch {
+    print("Error fetching SPC outlook geometry: \(error)")
+}
+```
+
 ## Error Handling
 
 The wrapper uses Swift's built-in error handling mechanisms. All service methods are marked with `throws` and will throw appropriate `NWSError` instances when errors occur.

@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 @testable import SwiftNWS
 
@@ -231,4 +232,153 @@ func client() -> NWSClient {
 @Test func testSPCOutlook() async throws {
     let outlook = try await client().products.getLatestSPCOutlook(.day1)
     print(outlook)
+}
+
+@Test func testSPCOutlookGeometryDecoding() throws {
+    let json = """
+    {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "id": 101,
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [-97.0, 35.0],
+                  [-96.0, 35.0],
+                  [-96.0, 36.0],
+                  [-97.0, 35.0]
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "objectid": 101,
+            "dn": 3,
+            "valid": "2026-04-08T12:00:00Z",
+            "expire": "2026-04-09T12:00:00Z",
+            "issue": "2026-04-08T11:30:00Z",
+            "label": "Marginal",
+            "stroke": "#000000",
+            "fill": "#73B273",
+            "idp_source": "SPC",
+            "idp_filedate": 1712575800000,
+            "idp_ingestdate": 1712575860000,
+            "st_area(shape)": 12.5,
+            "st_perimeter(shape)": 8.25
+          }
+        }
+      ]
+    }
+    """
+
+    let decoder = JSONDecoder()
+    let collection = try decoder.decode(NWSSPCOutlookFeatureCollection.self, from: Data(json.utf8))
+
+    #expect(collection.features.count == 1)
+    #expect(collection.features[0].id == "101")
+    #expect(collection.features[0].properties.outlookValue == 3)
+    #expect(collection.features[0].geometry.coordinatePolygons[0][0].count == 4)
+    #expect(collection.features[0].geometry.coordinatePolygons[0][0][0] == NWSCoordinate(latitude: 35.0, longitude: -97.0))
+    #expect(collection.features[0].properties.fileDate != nil)
+}
+
+@Test func testSPCOutlookPolygonGeometryDecoding() throws {
+    let json = """
+    {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [-99.0, 34.0],
+                [-98.0, 34.0],
+                [-98.0, 35.0],
+                [-99.0, 34.0]
+              ]
+            ]
+          },
+          "properties": {
+            "objectid": 55,
+            "label": "Slight",
+            "idp_filedate": "2026-04-08T12:00:00Z"
+          }
+        }
+      ]
+    }
+    """
+
+    let collection = try JSONDecoder().decode(NWSSPCOutlookFeatureCollection.self, from: Data(json.utf8))
+    let feature = try #require(collection.features.first)
+
+    #expect(feature.id == "55")
+    #expect(feature.properties.label == "Slight")
+    #expect(feature.properties.fileDate != nil)
+    #expect(feature.geometry.coordinatePolygons.count == 1)
+    #expect(feature.geometry.coordinatePolygons[0].count == 1)
+    #expect(feature.geometry.coordinatePolygons[0][0][1] == NWSCoordinate(latitude: 34.0, longitude: -98.0))
+}
+
+@Test func testSPCOutlookFeatureStringIdentifierDecoding() throws {
+    let json = """
+    {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "id": "custom-id",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [-90.0, 30.0],
+                [-89.5, 30.0],
+                [-89.5, 30.5],
+                [-90.0, 30.0]
+              ]
+            ]
+          },
+          "properties": {}
+        }
+      ]
+    }
+    """
+
+    let collection = try JSONDecoder().decode(NWSSPCOutlookFeatureCollection.self, from: Data(json.utf8))
+    #expect(collection.features.first?.id == "custom-id")
+}
+
+@Test func testAlertResponseDecodingVariants() throws {
+    let allClearJSON = #""AllClear""#
+    let hyphenatedJSON = #""all-clear""#
+    let noneJSON = #""None""#
+
+    #expect(try JSONDecoder().decode(NWSAlertResponse.self, from: Data(allClearJSON.utf8)) == .allClear)
+    #expect(try JSONDecoder().decode(NWSAlertResponse.self, from: Data(hyphenatedJSON.utf8)) == .allClear)
+    #expect(try JSONDecoder().decode(NWSAlertResponse.self, from: Data(noneJSON.utf8)) == .None)
+}
+
+@Test func testAlertResponseInvalidValueFails() throws {
+    let invalidJSON = #""NotARealResponse""#
+    #expect(throws: DecodingError.self) {
+        try JSONDecoder().decode(NWSAlertResponse.self, from: Data(invalidJSON.utf8))
+    }
+}
+
+@Test func testSPCOutlookGeometryLive() async throws {
+    let outlook = try await client().spcOutlooks.getOutlookGeometry(for: .day1Categorical)
+
+    #expect(outlook.type == "FeatureCollection")
+    #expect(outlook.features.isEmpty == false)
+
+    let firstFeature = try #require(outlook.features.first)
+    #expect(firstFeature.geometry.coordinatePolygons.isEmpty == false)
+    #expect(firstFeature.geometry.coordinatePolygons[0].isEmpty == false)
+    #expect(firstFeature.geometry.coordinatePolygons[0][0].isEmpty == false)
 }

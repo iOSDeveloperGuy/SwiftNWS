@@ -34,6 +34,11 @@ public class NWSClient {
     public lazy var products: ProductsService = {
         return ProductsService(networkService: self.networkService)
     }()
+
+    /// Service for accessing SPC outlook geometry endpoints
+    public lazy var spcOutlooks: SPCOutlooksService = {
+        return SPCOutlooksService(networkService: self.networkService)
+    }()
     
     /// Service for accessing zone-related endpoints
     public lazy var zones: ZonesService = {
